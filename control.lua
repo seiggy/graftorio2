@@ -119,6 +119,12 @@ gauge_logistic_network_items = prometheus.gauge(
 	{ "force", "location", "network", "name" }
 )
 
+gauge_circuit_network_signal = prometheus.gauge(
+	"factorio_circuit_network_signal",
+	"the value of a signal in a circuit network",
+	{ "force", "location", "network", "name" }
+)
+
 gauge_power_production_input =
 	prometheus.gauge("factorio_power_production_input", "power produced", { "force", "name", "network", "surface" })
 gauge_power_production_output =

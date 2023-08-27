@@ -84,6 +84,27 @@ function register_events(event)
 			end
 		end
 
+		gauge_circuit_network_signal:reset()
+		local seen = {}
+		for _, surface in pairs(game.surfaces) do
+			for _, combinator in
+				pairs(surface.find_entities_filtered({ force = player.force, type = "constant-combinator" }))
+			do
+				for _, wire_type in pairs({ defines.wire_type.red, defines.wire_type.green }) do
+					local network = combinator.get_circuit_network(wire_type)
+					if network ~= nil and seen[network.network_id] == nil then
+						seen[network.network_id] = true
+						for _, signal in pairs(network.signals) do
+							gauge_circuit_network_signal:set(
+								signal.count,
+								{ player.force.name, surface.name, tostring(network.network_id), signal.signal.name }
+							)
+						end
+					end
+				end
+			end
+		end
+
 		-- research tick handler
 		on_research_tick(player, event)
 	end
