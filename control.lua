@@ -4,6 +4,7 @@ require("yarm")
 require("events")
 require("power")
 require("research")
+require("circuit-network")
 
 bucket_settings = train_buckets(settings.startup["graftorio2-train-histogram-buckets"].value)
 nth_tick = settings.startup["graftorio2-nth-tick"].value
@@ -125,6 +126,12 @@ gauge_circuit_network_signal = prometheus.gauge(
 	{ "force", "location", "network", "name" }
 )
 
+gauge_circuit_network_monitored = prometheus.gauge(
+	"factorio_circuit_network_monitored",
+	"whether a circuit network with given ID is being monitored",
+	{ "force", "location", "network" }
+)
+
 gauge_power_production_input =
 	prometheus.gauge("factorio_power_production_input", "power produced", { "force", "name", "network", "surface" })
 gauge_power_production_output =
@@ -137,6 +144,7 @@ script.on_init(function()
 	end
 
 	on_power_init()
+	on_circuit_network_init()
 
 	script.on_nth_tick(nth_tick, register_events)
 
@@ -162,6 +170,15 @@ script.on_init(function()
 
 	-- research events
 	script.on_event(defines.events.on_research_finished, on_research_finished)
+
+	-- circuit-network
+	script.on_event(defines.events.on_built_entity, on_circuit_network_build)
+	script.on_event(defines.events.on_robot_built_entity, on_circuit_network_build)
+	script.on_event(defines.events.script_raised_built, on_circuit_network_build)
+	script.on_event(defines.events.on_player_mined_entity, on_circuit_network_destroy)
+	script.on_event(defines.events.on_robot_mined_entity, on_circuit_network_destroy)
+	script.on_event(defines.events.on_entity_died, on_circuit_network_destroy)
+	script.on_event(defines.events.script_raised_destroy, on_circuit_network_destroy)
 end)
 
 script.on_load(function()
@@ -172,6 +189,7 @@ script.on_load(function()
 	end
 
 	on_power_load()
+	on_circuit_network_load()
 
 	script.on_nth_tick(nth_tick, register_events)
 
@@ -197,6 +215,15 @@ script.on_load(function()
 
 	-- research events
 	script.on_event(defines.events.on_research_finished, on_research_finished)
+
+	-- circuit-network
+	script.on_event(defines.events.on_built_entity, on_circuit_network_build)
+	script.on_event(defines.events.on_robot_built_entity, on_circuit_network_build)
+	script.on_event(defines.events.script_raised_built, on_circuit_network_build)
+	script.on_event(defines.events.on_player_mined_entity, on_circuit_network_destroy)
+	script.on_event(defines.events.on_robot_mined_entity, on_circuit_network_destroy)
+	script.on_event(defines.events.on_entity_died, on_circuit_network_destroy)
+	script.on_event(defines.events.script_raised_destroy, on_circuit_network_destroy)
 end)
 
 script.on_configuration_changed(function(event)
