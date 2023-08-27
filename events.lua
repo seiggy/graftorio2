@@ -92,7 +92,7 @@ function register_events(event)
 			do
 				for _, wire_type in pairs({ defines.wire_type.red, defines.wire_type.green }) do
 					local network = combinator.get_circuit_network(wire_type)
-					if network ~= nil and seen[network.network_id] == nil then
+					if network ~= nil and seen[network.network_id] == nil and network.signals ~= nil then
 						seen[network.network_id] = true
 						for _, signal in pairs(network.signals) do
 							gauge_circuit_network_signal:set(
