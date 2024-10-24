@@ -54,17 +54,18 @@ function on_circuit_network_tick(event)
 		for _, combinator in pairs(data.combinators) do
 			for _, wire_type in pairs({ defines.wire_type.red, defines.wire_type.green }) do
 				local network = combinator.get_circuit_network(wire_type)
+				local network_id = tostring(network.network_id)
 				if network ~= nil and seen[network.network_id] == nil and network.signals ~= nil then
 					seen[network.network_id] = true
 					gauge_circuit_network_monitored:set(
 						1,
-						{ combinator.force.name, combinator.surface.name, tostring(network.network_id) }
+						{ combinator.force.name, combinator.surface.name, network_id }
 					)
 					for _, signal in pairs(network.signals) do
 						gauge_circuit_network_signal:set(signal.count, {
 							combinator.force.name,
 							combinator.surface.name,
-							tostring(network.network_id),
+							network_id,
 							signal.signal.name,
 						})
 					end
