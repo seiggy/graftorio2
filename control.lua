@@ -123,7 +123,7 @@ gauge_logistic_network_items = prometheus.gauge(
 gauge_circuit_network_signal = prometheus.gauge(
 	"factorio_circuit_network_signal",
 	"the value of a signal in a circuit network",
-	{ "force", "surface", "network", "name" }
+	{ "force", "surface", "network", "name", "quality" }
 )
 
 gauge_circuit_network_monitored = prometheus.gauge(
@@ -174,9 +174,11 @@ script.on_init(function()
 	-- circuit-network
 	script.on_event(defines.events.on_built_entity, on_circuit_network_build)
 	script.on_event(defines.events.on_robot_built_entity, on_circuit_network_build)
+	script.on_event(defines.events.on_space_platform_built_entity, on_circuit_network_build)
 	script.on_event(defines.events.script_raised_built, on_circuit_network_build)
 	script.on_event(defines.events.on_player_mined_entity, on_circuit_network_destroy)
 	script.on_event(defines.events.on_robot_mined_entity, on_circuit_network_destroy)
+	script.on_event(defines.events.on_space_platform_mined_entity, on_circuit_network_destroy)
 	script.on_event(defines.events.on_entity_died, on_circuit_network_destroy)
 	script.on_event(defines.events.script_raised_destroy, on_circuit_network_destroy)
 end)
