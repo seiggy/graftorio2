@@ -54,7 +54,7 @@ function register_events(event)
 			end
 
 			for _, entry in ipairs(player.force.items_launched) do
-				gauge_items_launched:set(entry.count, { player.force.name, entry.name, entry.quality })
+				gauge_items_launched:set(entry.count, { player.force.name, entry.name, entry.quality }) -- this one seems broken :(
 			end
 		end
 
