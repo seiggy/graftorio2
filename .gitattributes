@@ -1,0 +1,17 @@
+# Set the default behavior to automatically detect text files and perform LF normalization
+* text=auto
+
+# files that should not be modified
+*.png binary
+*.blend binary export-ignore
+
+# files that should not get included in a release zip
+.vscode export-ignore
+.git export-ignore
+.github export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+.releaserc export-ignore
+Makefile export-ignore
+docker-compose.yml export-ignore
+config export-ignore
