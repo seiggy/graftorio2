@@ -2,3 +2,5 @@
 - Wrapping the space platform stuff so that it should work with or without the expansion.
 ## 2.0.2
 - had the wrong call in the mod check
+## 2.0.3
+- Added space platform events to the on_load function
