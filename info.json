@@ -1,6 +1,6 @@
 {
   "name": "graftorio2-seiggy",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "title": "graftorio2 - seiggy's cluster",
   "author": "seiggy",
   "description": "visualize metrics from your factorio game in grafana",
