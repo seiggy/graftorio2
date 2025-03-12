@@ -174,7 +174,7 @@ script.on_init(function()
 	-- circuit-network
 	script.on_event(defines.events.on_built_entity, on_circuit_network_build)
 	script.on_event(defines.events.on_robot_built_entity, on_circuit_network_build)
-	if game.active_mods["space-exploration"] or (defines.events.on_space_platform_built_entity ~= nil) then
+	if script.active_mods["space-exploration"] or (defines.events.on_space_platform_built_entity ~= nil) then
 		script.on_event(defines.events.on_space_platform_built_entity, on_circuit_network_build)
 		script.on_event(defines.events.on_space_platform_mined_entity, on_circuit_network_destroy)
 	end
